@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mongo-ingress
+  labels:
+    name: mongo-ingress
+spec:
+  rules:
+  - host: localhost  # should be a valid domain | configure localhost server for testing
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:  # to connect to a service it must be a internal service/mongo-express-service is configured as a external service
+            name: mongo-express-service # map with 'name:' directive in metadata
+            port: 
+              number: 8081  # map with 'port:' directive
